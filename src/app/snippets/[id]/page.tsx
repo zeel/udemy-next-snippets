@@ -4,7 +4,7 @@ import { db } from "@/db";
 import * as actions from "@/actions";
 
 interface IViewSnippetPage {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 export default async function ViewSnippetPage(props: IViewSnippetPage) {
@@ -39,4 +39,13 @@ export default async function ViewSnippetPage(props: IViewSnippetPage) {
       </pre>
     </div>
   );
+}
+
+export async function generateStaticParams() {
+  const snippets = await db.snippet.findMany();
+  return snippets.map((snippet) => {
+    return {
+      id: snippet.id.toString(),
+    };
+  });
 }

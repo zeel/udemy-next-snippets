@@ -2,7 +2,7 @@ import SnippetEditForm from "@/components/snippet-edit-form";
 import { db } from "@/db";
 import { notFound } from "next/navigation";
 interface IEditSnippetPage {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 export default async function SnippetEditPage(props: IEditSnippetPage) {
   const params = await props.params;
